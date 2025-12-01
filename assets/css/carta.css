@@ -1,1 +1,84 @@
+/* Scrollspy / active link */
+.menu-nav .menu-nav-link { color: #222; transition: color .18s ease; }
+.menu-nav .menu-nav-link.w--current,
+.menu-nav .menu-nav-link.active { color: #ffcc00 !important; font-weight:600; }
+
+/* Si la sección activa debe cambiar color del H2 */
+.menu_items-wrapper.is-active .heading-h2,
+.menu_items-wrapper.is-active .heading-h2-italic {
+  color: #ffcc00;
+  transition: color .18s ease;
+}
+
+/* Forzar visibilidad de encabezados si Webflow/inline styles los ocultan */
+.menu_items-wrapper .heading-h2,
+.menu_items-wrapper .heading-h2-italic {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Si hay espacio vacío por un elemento invisible, asegurar que no tenga altura colapsada */
+.menu_items-wrapper .empty-fix {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+
+
+/* ===== Menu items reveal & scrollspy styles =====
+   Añádelo al final de assets/css/global.css o como archivo separado.
+*/
+
+/* -- variables (ajusta color principal) -- */
+:root{
+  --menu-accent: #009ad5; /* color para el enlace activo */
+  --menu-text: #111;
+}
+
+/* Forzar estado oculto por defecto (sobrescribe inline style) */
+.menu-item {
+  opacity: 0 !important;
+  transform: translateY(12px) !important;
+  transition: opacity .45s cubic-bezier(.2,.9,.3,1), transform .45s cubic-bezier(.2,.9,.3,1) !important;
+  will-change: opacity, transform;
+}
+
+/* Cuando JS añade la clase .in-view se muestra */
+.menu-item.in-view {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Pequeña variación por orden (opcional) */
+.menu .menu-item.in-view:nth-child(odd) { transition-delay: 0s; }
+.menu .menu-item.in-view:nth-child(even){ transition-delay: .03s; }
+
+/* Scrollspy: estilo del enlace activo (w--current) */
+.menu-nav .menu-nav-link {
+  color: inherit;
+  transition: color .18s ease;
+}
+
+/* Cuando recibe la clase w--current (Webflow already uses this) */
+.menu-nav .menu-nav-link.w--current,
+.menu-nav .menu-nav-link.active {
+  color: var(--menu-accent) !important;
+  font-weight: 600;
+}
+
+/* Si quieres que el header de la sección cambie color cuando la sección está activa */
+.menu_items-wrapper.is-active .heading-h2,
+.menu_items-wrapper.is-active .heading-h2-italic {
+  color: var(--menu-accent);
+  transition: color .18s ease;
+}
+
+/* Accessibility / reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .menu-item { transition: none !important; transform: none !important; }
+}
 
